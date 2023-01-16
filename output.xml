@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.0.2 (Python 3.11.1 on darwin)" generated="20230117 00:19:05.437" rpa="false" schemaversion="3">
+<suite id="s1" name="Suites" source="/Users/adminhb/Documents/GovTech-QA-Assessment/suites">
+<suite id="s1-s1" name="ClerkActions" source="/Users/adminhb/Documents/GovTech-QA-Assessment/suites/ClerkActions.robot">
+<test id="s1-s1-t1" name="Add of Single Working class hero using Api" line="5">
+<kw name="Create a Single Working Class Hero Request" library="common">
+<var>${RESP_MSG}</var>
+<kw name="Get Cookie Token" library="common">
+<var>${COOKIE_VAL}</var>
+<kw name="Create Session" library="RequestsLibrary">
+<var>${session}</var>
+<arg>httpbin</arg>
+<arg>${URL}</arg>
+<arg>verify=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20230117 00:19:05.700" level="INFO">Creating Session using : alias=httpbin, url=http://localhost:9997, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<msg timestamp="20230117 00:19:05.700" level="INFO">${session} = &lt;requests.sessions.Session object at 0x10ce77290&gt;</msg>
+<status status="PASS" starttime="20230117 00:19:05.700" endtime="20230117 00:19:05.700"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${data}</var>
+<arg>username=${CLERK_USERNAME}</arg>
+<arg>password=${CLERK_PASSWORD}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230117 00:19:05.701" level="INFO">${data} = {'username': 'clerk', 'password': 'pwd'}</msg>
+<status status="PASS" starttime="20230117 00:19:05.701" endtime="20230117 00:19:05.701"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>Content-Type</arg>
+<arg>application/x-www-form-urlencoded</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230117 00:19:05.701" level="INFO">${headers} = {'Content-Type': 'application/x-www-form-urlencoded'}</msg>
+<status status="PASS" starttime="20230117 00:19:05.701" endtime="20230117 00:19:05.701"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${resp}</var>
+<arg>httpbin</arg>
+<arg>/login</arg>
+<arg>headers=${headers}</arg>
+<arg>data=${data}</arg>
+<arg>allow_redirects=True</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20230117 00:19:05.796" level="INFO">POST Request : url=http://localhost:9997/login (redirected) 
+ path_url=/login 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/x-www-form-urlencoded', 'Content-Length': '27'} 
+ body=username=clerk&amp;password=pwd 
+ </msg>
+<msg timestamp="20230117 00:19:05.796" level="INFO">GET Response : url=http://localhost:9997/clerk/dashboard 
+ status=200, reason= 
+ headers={'X-Content-Type-Options': 'nosniff', 'X-XSS-Protection': '1; mode=block', 'Cache-Control': 'no-cache, no-store, max-age=0, must-revalidate', 'Pragma': 'no-cache', 'Expires': '0', 'Content-Type': 'text/html;charset=UTF-8', 'Content-Language': 'en-SG', 'Transfer-Encoding': 'chunked', 'Date': 'Mon, 16 Jan 2023 16:19:05 GMT', 'Keep-Alive': 'timeout=60', 'Connection': 'keep-alive'} 
+ body=&lt;!DOCTYPE html&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"&gt;
+&lt;head&gt;
+    &lt;script type="text/javascript" src = "/webjars/jquery/3.6.0/jquery.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src = "/webjars/datatables/1.11.4/js/jquery.dataTables.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src = "/webjars/jquery-ui/1.12.0/jquery-ui.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src = "/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src = "/webjars/datatables/1.11.4/js/dataTables.bootstrap5.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src = "/js/search.js"&gt;&lt;/script&gt;
+    &lt;link href = "/webjars/bootstrap/5.1.3/css/bootstrap.min.css" rel = "stylesheet"/&gt;
+    &lt;link href = "/webjars/jquery-ui/1.12.0/jquery-ui.min.css" rel = "stylesheet" /&gt;
+    &lt;link href = "/webjars/datatables/1.11.4/css/dataTables.bootstrap5.css" rel = "stylesheet"/&gt;
+    &lt;title&gt;Spring Boot Application&lt;/title&gt;
+&lt;/head&gt;
+&lt;body class="container"&gt;
+    &lt;div class="row justify-content-md-center"&gt;
+        &lt;div class="col-md"&gt;
+            &lt;h1&gt;Clerk Dashboard&lt;/h1&gt;
+            &lt;span&gt;Welcome Home Clark!&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class="pt-3 col col-lg-4 text-end"&gt;
+            &lt;form action="/logout" method="post"&gt;
+                &lt;button class="btn btn-primary btn-small" type="submit"&gt;Log out&lt;/button&gt;
+            &lt;/form&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="container"&gt;
+        &lt;div class="row text-start align-items-center pb-2"&gt;
+            &lt;div class="col bg-secondary bg-gradient"&gt;
+                &lt;p class="fs-3 fw-bold text-white"&gt;What would you like to do?&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="row align-items-center"&gt;
+            &lt;div class="p-2 col-sm-3"&gt;
+                &lt;div class="row"&gt;
+                    &lt;div class="dropdown"&gt;
+                        &lt;button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false"&gt;Add a hero&lt;/button&gt;
+                        &lt;ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2"&gt;
+                            &lt;li&gt;&lt;a class="dropdown-item" href="/clerk/add"&gt;Add&lt;/a&gt;&lt;/li&gt;
+                            &lt;li&gt;&lt;a class="dropdown-item" href="/clerk/upload-csv"&gt;Upload a csv file&lt;/a&gt;&lt;/li&gt;
+                        &lt;/ul&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/body&gt; 
+ </msg>
+<msg timestamp="20230117 00:19:05.796" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230117 00:19:05.701" endtime="20230117 00:19:05.796"/>
+</kw>
+<kw name="Get Dictionary Values" library="Collections">
+<var>${COOKIE_VALUE}</var>
+<arg>${session.cookies}</arg>
+<doc>Returns values of the given ``dictionary`` as a list.</doc>
+<msg timestamp="20230117 00:19:05.797" level="INFO">${COOKIE_VALUE} = ['80A89A8AEAB71F189B46A51AB15B6F9D']</msg>
+<status status="PASS" starttime="20230117 00:19:05.796" endtime="20230117 00:19:05.797"/>
+</kw>
+<kw name="Catenate" library="BuiltIn">
+<var>${JSESSIONID_VAL}</var>
+<arg>JSESSIONID=${COOKIE_VALUE}[0]</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<msg timestamp="20230117 00:19:05.798" level="INFO">${JSESSIONID_VAL} = JSESSIONID=80A89A8AEAB71F189B46A51AB15B6F9D</msg>
+<status status="PASS" starttime="20230117 00:19:05.797" endtime="20230117 00:19:05.798"/>
+</kw>
+<msg timestamp="20230117 00:19:05.798" level="INFO">${COOKIE_VAL} = JSESSIONID=80A89A8AEAB71F189B46A51AB15B6F9D</msg>
+<status status="PASS" starttime="20230117 00:19:05.700" endtime="20230117 00:19:05.798"/>
+</kw>
+<kw name="Load Json From File" library="JSONLibrary">
+<var>${JSON_FILE}</var>
+<arg>${JSON_PATH}</arg>
+<doc>Load JSON from file.</doc>
+<msg timestamp="20230117 00:19:05.799" level="INFO">${JSON_FILE} = {'natid': 'natid-116', 'name': 'karthict', 'gender': 'MALE', 'birthDate': '2020-01-20', 'deathDate': None, 'browniePoints': '9', 'salary': '100', 'taxPaid': '10'}</msg>
+<status status="PASS" starttime="20230117 00:19:05.798" endtime="20230117 00:19:05.799"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${NAT_ID}</var>
+<arg>random.randint(1,100)</arg>
+<arg>random</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230117 00:19:05.799" level="INFO">${NAT_ID} = 65</msg>
+<status status="PASS" starttime="20230117 00:19:05.799" endtime="20230117 00:19:05.799"/>
+</kw>
+<kw name="Update Value To Json" library="JSONLibrary">
+<var>${JSON_DATA}</var>
+<arg>${JSON_FILE}</arg>
+<arg>$..natid</arg>
+<arg>natid-10${NAT_ID}</arg>
+<doc>Update value to JSON using JSONPath</doc>
+<msg timestamp="20230117 00:19:05.829" level="INFO">${JSON_DATA} = {'natid': 'natid-1065', 'name': 'karthict', 'gender': 'MALE', 'birthDate': '2020-01-20', 'deathDate': None, 'browniePoints': '9', 'salary': '100', 'taxPaid': '10'}</msg>
+<status status="PASS" starttime="20230117 00:19:05.799" endtime="20230117 00:19:05.829"/>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>http</arg>
+<arg>${URL}</arg>
+<arg>verify=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20230117 00:19:05.829" level="INFO">Creating Session using : alias=http, url=http://localhost:9997, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" starttime="20230117 00:19:05.829" endtime="20230117 00:19:05.829"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>Content-Type</arg>
+<arg>application/json</arg>
+<arg>Cookie</arg>
+<arg>${COOKIE_VAL}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230117 00:19:05.830" level="INFO">${headers} = {'Content-Type': 'application/json', 'Cookie': 'JSESSIONID=80A89A8AEAB71F189B46A51AB15B6F9D'}</msg>
+<status status="PASS" starttime="20230117 00:19:05.829" endtime="20230117 00:19:05.830"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${resp}</var>
+<arg>http</arg>
+<arg>/clerk/add</arg>
+<arg>headers=${headers}</arg>
+<arg>json=${JSON_DATA}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20230117 00:19:05.848" level="INFO">POST Request : url=http://localhost:9997/clerk/add 
+ path_url=/clerk/add 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Cookie': 'JSESSIONID=80A89A8AEAB71F189B46A51AB15B6F9D', 'Content-Length': '163'} 
+ body=b'{"natid": "natid-1065", "name": "karthict", "gender": "MALE", "birthDate": "2020-01-20", "deathDate": null, "browniePoints": "9", "salary": "100", "taxPaid": "10"}' 
+ </msg>
+<msg timestamp="20230117 00:19:05.848" level="INFO">POST Response : url=http://localhost:9997/clerk/add 
+ status=200, reason= 
+ headers={'X-Content-Type-Options': 'nosniff', 'X-XSS-Protection': '1; mode=block', 'Cache-Control': 'no-cache, no-store, max-age=0, must-revalidate', 'Pragma': 'no-cache', 'Expires': '0', 'Content-Type': 'text/html;charset=UTF-8', 'Content-Language': 'en-SG', 'Transfer-Encoding': 'chunked', 'Date': 'Mon, 16 Jan 2023 16:19:05 GMT', 'Keep-Alive': 'timeout=60', 'Connection': 'keep-alive'} 
+ body=&lt;div id="notification-block" class="row py-2"&gt;
+        &lt;div class="bg-success pt-2"&gt;
+            &lt;h3&gt;Created Successfully!&lt;/h3&gt;
+        &lt;/div&gt;
+        
+    &lt;/div&gt; 
+ </msg>
+<msg timestamp="20230117 00:19:05.849" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230117 00:19:05.830" endtime="20230117 00:19:05.849"/>
+</kw>
+<msg timestamp="20230117 00:19:05.849" level="INFO">${RESP_MSG} = 200</msg>
+<status status="PASS" starttime="20230117 00:19:05.699" endtime="20230117 00:19:05.849"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${RESP_MSG}</arg>
+<arg>${SUCCESS_RESPONSE_CODE}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<msg timestamp="20230117 00:19:05.850" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<status status="PASS" starttime="20230117 00:19:05.850" endtime="20230117 00:19:05.850"/>
+</kw>
+<tag>positive_cases</tag>
+<status status="PASS" starttime="20230117 00:19:05.699" endtime="20230117 00:19:05.850"/>
+</test>
+<test id="s1-s1-t2" name="Check natid Existing records in the Database" line="10">
+<kw name="Verify natid already exists in the database" library="common">
+<kw name="Get Cookie Token" library="common">
+<var>${COOKIE_VAL}</var>
+<kw name="Create Session" library="RequestsLibrary">
+<var>${session}</var>
+<arg>httpbin</arg>
+<arg>${URL}</arg>
+<arg>verify=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20230117 00:19:05.851" level="INFO">Creating Session using : alias=httpbin, url=http://localhost:9997, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<msg timestamp="20230117 00:19:05.851" level="INFO">${session} = &lt;requests.sessions.Session object at 0x10d294f90&gt;</msg>
+<status status="PASS" starttime="20230117 00:19:05.851" endtime="20230117 00:19:05.851"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${data}</var>
+<arg>username=${CLERK_USERNAME}</arg>
+<arg>password=${CLERK_PASSWORD}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230117 00:19:05.852" level="INFO">${data} = {'username': 'clerk', 'password': 'pwd'}</msg>
+<status status="PASS" starttime="20230117 00:19:05.851" endtime="20230117 00:19:05.852"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>Content-Type</arg>
+<arg>application/x-www-form-urlencoded</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230117 00:19:05.852" level="INFO">${headers} = {'Content-Type': 'application/x-www-form-urlencoded'}</msg>
+<status status="PASS" starttime="20230117 00:19:05.852" endtime="20230117 00:19:05.852"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${resp}</var>
+<arg>httpbin</arg>
+<arg>/login</arg>
+<arg>headers=${headers}</arg>
+<arg>data=${data}</arg>
+<arg>allow_redirects=True</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20230117 00:19:05.937" level="INFO">POST Request : url=http://localhost:9997/login (redirected) 
+ path_url=/login 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/x-www-form-urlencoded', 'Content-Length': '27'} 
+ body=username=clerk&amp;password=pwd 
+ </msg>
+<msg timestamp="20230117 00:19:05.937" level="INFO">GET Response : url=http://localhost:9997/clerk/dashboard 
+ status=200, reason= 
+ headers={'X-Content-Type-Options': 'nosniff', 'X-XSS-Protection': '1; mode=block', 'Cache-Control': 'no-cache, no-store, max-age=0, must-revalidate', 'Pragma': 'no-cache', 'Expires': '0', 'Content-Type': 'text/html;charset=UTF-8', 'Content-Language': 'en-SG', 'Transfer-Encoding': 'chunked', 'Date': 'Mon, 16 Jan 2023 16:19:05 GMT', 'Keep-Alive': 'timeout=60', 'Connection': 'keep-alive'} 
+ body=&lt;!DOCTYPE html&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"&gt;
+&lt;head&gt;
+    &lt;script type="text/javascript" src = "/webjars/jquery/3.6.0/jquery.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src = "/webjars/datatables/1.11.4/js/jquery.dataTables.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src = "/webjars/jquery-ui/1.12.0/jquery-ui.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src = "/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src = "/webjars/datatables/1.11.4/js/dataTables.bootstrap5.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src = "/js/search.js"&gt;&lt;/script&gt;
+    &lt;link href = "/webjars/bootstrap/5.1.3/css/bootstrap.min.css" rel = "stylesheet"/&gt;
+    &lt;link href = "/webjars/jquery-ui/1.12.0/jquery-ui.min.css" rel = "stylesheet" /&gt;
+    &lt;link href = "/webjars/datatables/1.11.4/css/dataTables.bootstrap5.css" rel = "stylesheet"/&gt;
+    &lt;title&gt;Spring Boot Application&lt;/title&gt;
+&lt;/head&gt;
+&lt;body class="container"&gt;
+    &lt;div class="row justify-content-md-center"&gt;
+        &lt;div class="col-md"&gt;
+            &lt;h1&gt;Clerk Dashboard&lt;/h1&gt;
+            &lt;span&gt;Welcome Home Clark!&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class="pt-3 col col-lg-4 text-end"&gt;
+            &lt;form action="/logout" method="post"&gt;
+                &lt;button class="btn btn-primary btn-small" type="submit"&gt;Log out&lt;/button&gt;
+            &lt;/form&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="container"&gt;
+        &lt;div class="row text-start align-items-center pb-2"&gt;
+            &lt;div class="col bg-secondary bg-gradient"&gt;
+                &lt;p class="fs-3 fw-bold text-white"&gt;What would you like to do?&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="row align-items-center"&gt;
+            &lt;div class="p-2 col-sm-3"&gt;
+                &lt;div class="row"&gt;
+                    &lt;div class="dropdown"&gt;
+                        &lt;button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false"&gt;Add a hero&lt;/button&gt;
+                        &lt;ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2"&gt;
+                            &lt;li&gt;&lt;a class="dropdown-item" href="/clerk/add"&gt;Add&lt;/a&gt;&lt;/li&gt;
+                            &lt;li&gt;&lt;a class="dropdown-item" href="/clerk/upload-csv"&gt;Upload a csv file&lt;/a&gt;&lt;/li&gt;
+                        &lt;/ul&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/body&gt; 
+ </msg>
+<msg timestamp="20230117 00:19:05.937" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230117 00:19:05.852" endtime="20230117 00:19:05.937"/>
+</kw>
+<kw name="Get Dictionary Values" library="Collections">
+<var>${COOKIE_VALUE}</var>
+<arg>${session.cookies}</arg>
+<doc>Returns values of the given ``dictionary`` as a list.</doc>
+<msg timestamp="20230117 00:19:05.938" level="INFO">${COOKIE_VALUE} = ['F1AA758B47F1BE224583D0EF7FF22D70']</msg>
+<status status="PASS" starttime="20230117 00:19:05.937" endtime="20230117 00:19:05.938"/>
+</kw>
+<kw name="Catenate" library="BuiltIn">
+<var>${JSESSIONID_VAL}</var>
+<arg>JSESSIONID=${COOKIE_VALUE}[0]</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<msg timestamp="20230117 00:19:05.938" level="INFO">${JSESSIONID_VAL} = JSESSIONID=F1AA758B47F1BE224583D0EF7FF22D70</msg>
+<status status="PASS" starttime="20230117 00:19:05.938" endtime="20230117 00:19:05.938"/>
+</kw>
+<msg timestamp="20230117 00:19:05.938" level="INFO">${COOKIE_VAL} = JSESSIONID=F1AA758B47F1BE224583D0EF7FF22D70</msg>
+<status status="PASS" starttime="20230117 00:19:05.851" endtime="20230117 00:19:05.938"/>
+</kw>
+<kw name="Load Json From File" library="JSONLibrary">
+<var>${JSON_FILE}</var>
+<arg>${JSON_PATH}</arg>
+<doc>Load JSON from file.</doc>
+<msg timestamp="20230117 00:19:05.939" level="INFO">${JSON_FILE} = {'natid': 'natid-116', 'name': 'karthict', 'gender': 'MALE', 'birthDate': '2020-01-20', 'deathDate': None, 'browniePoints': '9', 'salary': '100', 'taxPaid': '10'}</msg>
+<status status="PASS" starttime="20230117 00:19:05.938" endtime="20230117 00:19:05.939"/>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>http</arg>
+<arg>${URL}</arg>
+<arg>verify=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20230117 00:19:05.939" level="INFO">Creating Session using : alias=http, url=http://localhost:9997, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" starttime="20230117 00:19:05.939" endtime="20230117 00:19:05.939"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>Content-Type</arg>
+<arg>application/json</arg>
+<arg>Cookie</arg>
+<arg>${COOKIE_VAL}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230117 00:19:05.939" level="INFO">${headers} = {'Content-Type': 'application/json', 'Cookie': 'JSESSIONID=F1AA758B47F1BE224583D0EF7FF22D70'}</msg>
+<status status="PASS" starttime="20230117 00:19:05.939" endtime="20230117 00:19:05.939"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${resp}</var>
+<arg>http</arg>
+<arg>/clerk/add</arg>
+<arg>headers=${headers}</arg>
+<arg>json=${JSON_FILE}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20230117 00:19:05.947" level="INFO">POST Request : url=http://localhost:9997/clerk/add 
+ path_url=/clerk/add 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Cookie': 'JSESSIONID=F1AA758B47F1BE224583D0EF7FF22D70', 'Content-Length': '162'} 
+ body=b'{"natid": "natid-116", "name": "karthict", "gender": "MALE", "birthDate": "2020-01-20", "deathDate": null, "browniePoints": "9", "salary": "100", "taxPaid": "10"}' 
+ </msg>
+<msg timestamp="20230117 00:19:05.947" level="INFO">POST Response : url=http://localhost:9997/clerk/add 
+ status=200, reason= 
+ headers={'X-Content-Type-Options': 'nosniff', 'X-XSS-Protection': '1; mode=block', 'Cache-Control': 'no-cache, no-store, max-age=0, must-revalidate', 'Pragma': 'no-cache', 'Expires': '0', 'Content-Type': 'text/html;charset=UTF-8', 'Content-Language': 'en-SG', 'Transfer-Encoding': 'chunked', 'Date': 'Mon, 16 Jan 2023 16:19:05 GMT', 'Keep-Alive': 'timeout=60', 'Connection': 'keep-alive'} 
+ body=&lt;div id="notification-block" class="row py-2"&gt;
+        
+        &lt;div class="bg-warning pt-2"&gt;
+            &lt;h3&gt;Unable to create hero!&lt;/h3&gt;
+            &lt;div class="col-12"&gt;
+                &lt;p&gt;Working Class Hero of natid: natid-116 already exists!&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt; 
+ </msg>
+<msg timestamp="20230117 00:19:05.947" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230117 00:19:05.939" endtime="20230117 00:19:05.947"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${body}</var>
+<arg>${resp.content}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20230117 00:19:05.948" level="INFO">${body} = &lt;div id="notification-block" class="row py-2"&gt;
+        
+        &lt;div class="bg-warning pt-2"&gt;
+            &lt;h3&gt;Unable to create hero!&lt;/h3&gt;
+            &lt;div class="col-12"&gt;
+                &lt;p&gt;Working Cl...</msg>
+<status status="PASS" starttime="20230117 00:19:05.947" endtime="20230117 00:19:05.948"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${body}</arg>
+<arg>${NATID_RECORD_MSG}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20230117 00:19:05.949" endtime="20230117 00:19:05.949"/>
+</kw>
+<status status="PASS" starttime="20230117 00:19:05.851" endtime="20230117 00:19:05.949"/>
+</kw>
+<status status="PASS" starttime="20230117 00:19:05.850" endtime="20230117 00:19:05.949"/>
+</test>
+<test id="s1-s1-t3" name="Addition of working class hero using csv file from UI" line="13">
+<kw name="Open application and upload CSV file and add Multiple Working Class Hero" library="common">
+<kw name="Login To Application" library="common">
+<arg>${CLERK_USERNAME}</arg>
+<arg>${CLERK_PASSWORD}</arg>
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${URL}/login</arg>
+<arg>chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20230117 00:19:05.950" level="INFO">Opening browser 'chrome' to base url 'http://localhost:9997/login'.</msg>
+<status status="PASS" starttime="20230117 00:19:05.950" endtime="20230117 00:19:08.237"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${USER_NAME}</arg>
+<arg>${U_NAME}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230117 00:19:08.238" level="INFO">Typing text 'clerk' into text field 'id=username-in'.</msg>
+<status status="PASS" starttime="20230117 00:19:08.237" endtime="20230117 00:19:08.394"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${USER_PASSWORD}</arg>
+<arg>${U_PASSWORD}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230117 00:19:08.395" level="INFO">Typing text 'pwd' into text field 'id=password-in'.</msg>
+<status status="PASS" starttime="20230117 00:19:08.394" endtime="20230117 00:19:08.474"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${SUBMIT_BTN}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20230117 00:19:08.474" level="INFO">Clicking element '//input[@type='submit']'.</msg>
+<status status="PASS" starttime="20230117 00:19:08.474" endtime="20230117 00:19:08.737"/>
+</kw>
+<status status="PASS" starttime="20230117 00:19:05.950" endtime="20230117 00:19:08.738"/>
+</kw>
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<arg>${CLERK_TEXT}</arg>
+<arg>${WAIT_FOR_20_SEC}</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" starttime="20230117 00:19:08.738" endtime="20230117 00:19:08.751"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${ADD_HERO_DROPDOWN}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20230117 00:19:08.752" level="INFO">Clicking element 'id=dropdownMenuButton2'.</msg>
+<status status="PASS" starttime="20230117 00:19:08.751" endtime="20230117 00:19:08.824"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${UPLOAD_CSV}</arg>
+<arg>${WAIT_FOR_20_SEC}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230117 00:19:08.824" endtime="20230117 00:19:08.851"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${UPLOAD_CSV}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20230117 00:19:08.852" level="INFO">Clicking element '//a[text()='Upload a csv file']'.</msg>
+<status status="PASS" starttime="20230117 00:19:08.851" endtime="20230117 00:19:09.016"/>
+</kw>
+<kw name="Choose File" library="SeleniumLibrary">
+<arg>${CHOOSE_FILE}</arg>
+<arg>${EXECDIR}/hero.csv</arg>
+<doc>Inputs the ``file_path`` into the file input field ``locator``.</doc>
+<msg timestamp="20230117 00:19:09.016" level="INFO">Sending /Users/adminhb/Documents/GovTech-QA-Assessment/hero.csv to browser.</msg>
+<status status="PASS" starttime="20230117 00:19:09.016" endtime="20230117 00:19:09.067"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>${WAIT_FOR_2_SEC}</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20230117 00:19:11.070" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" starttime="20230117 00:19:09.068" endtime="20230117 00:19:11.071"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${CLICK_CREATE_BTN}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20230117 00:19:11.072" level="INFO">Clicking element '//button[text()='Create']'.</msg>
+<status status="PASS" starttime="20230117 00:19:11.071" endtime="20230117 00:19:11.120"/>
+</kw>
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<arg>${HERO_CREATED_SUCCESSFULLY}</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<msg timestamp="20230117 00:19:16.425" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-2.png"&gt;&lt;img src="selenium-screenshot-2.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg timestamp="20230117 00:19:16.426" level="FAIL">Text 'Created Successfully!' did not appear in 5 seconds.</msg>
+<status status="FAIL" starttime="20230117 00:19:11.120" endtime="20230117 00:19:16.427"/>
+</kw>
+<kw name="Close All Browsers" library="SeleniumLibrary">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="NOT RUN" starttime="20230117 00:19:16.427" endtime="20230117 00:19:16.427"/>
+</kw>
+<status status="FAIL" starttime="20230117 00:19:05.950" endtime="20230117 00:19:16.427"/>
+</kw>
+<status status="FAIL" starttime="20230117 00:19:05.949" endtime="20230117 00:19:16.428">Text 'Created Successfully!' did not appear in 5 seconds.</status>
+</test>
+<status status="FAIL" starttime="20230117 00:19:05.474" endtime="20230117 00:19:16.429"/>
+</suite>
+<suite id="s1-s2" name="GovernerAction" source="/Users/adminhb/Documents/GovTech-QA-Assessment/suites/GovernerAction.robot">
+<test id="s1-s2-t1" name="Verify Governor actions on UI" line="5">
+<kw name="Search working class hero in Governor Dashboard" library="common">
+<kw name="Login To Application" library="common">
+<arg>${GOV_USERNAME}</arg>
+<arg>${GOV_PASSWORD}</arg>
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${URL}/login</arg>
+<arg>chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20230117 00:19:16.437" level="INFO">Opening browser 'chrome' to base url 'http://localhost:9997/login'.</msg>
+<status status="PASS" starttime="20230117 00:19:16.437" endtime="20230117 00:19:18.720"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${USER_NAME}</arg>
+<arg>${U_NAME}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230117 00:19:18.722" level="INFO">Typing text 'gov' into text field 'id=username-in'.</msg>
+<status status="PASS" starttime="20230117 00:19:18.721" endtime="20230117 00:19:18.872"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${USER_PASSWORD}</arg>
+<arg>${U_PASSWORD}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230117 00:19:18.873" level="INFO">Typing text 'pwd' into text field 'id=password-in'.</msg>
+<status status="PASS" starttime="20230117 00:19:18.873" endtime="20230117 00:19:18.954"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${SUBMIT_BTN}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20230117 00:19:18.955" level="INFO">Clicking element '//input[@type='submit']'.</msg>
+<status status="PASS" starttime="20230117 00:19:18.954" endtime="20230117 00:19:19.205"/>
+</kw>
+<status status="PASS" starttime="20230117 00:19:16.436" endtime="20230117 00:19:19.205"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${SEARCH_NATID}</arg>
+<arg>${WAIT_FOR_20_SEC}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230117 00:19:19.205" endtime="20230117 00:19:19.230"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${SEARCH_NATID}</arg>
+<arg>${NATID_VAL}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230117 00:19:19.231" level="INFO">Typing text 'natid-1' into text field 'id=natid'.</msg>
+<status status="PASS" starttime="20230117 00:19:19.230" endtime="20230117 00:19:19.303"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${SEARCH_BTN}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20230117 00:19:19.304" level="INFO">Clicking element '//button[@value='Search']'.</msg>
+<status status="PASS" starttime="20230117 00:19:19.303" endtime="20230117 00:19:19.344"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${SEARCH_TABLE_ID}</arg>
+<arg>${WAIT_FOR_20_SEC}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230117 00:19:19.344" endtime="20230117 00:19:19.376"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20230117 00:19:21.377" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" starttime="20230117 00:19:19.376" endtime="20230117 00:19:21.377"/>
+</kw>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${SEARCH_RESULT}</var>
+<arg>//th[@id="row-id"]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230117 00:19:21.402" level="INFO">${SEARCH_RESULT} = natid-1</msg>
+<status status="PASS" starttime="20230117 00:19:21.377" endtime="20230117 00:19:21.402"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${NATID_VAL}</arg>
+<arg>${SEARCH_RESULT}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230117 00:19:21.403" endtime="20230117 00:19:21.403"/>
+</kw>
+<kw name="Close All Browsers" library="SeleniumLibrary">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" starttime="20230117 00:19:21.403" endtime="20230117 00:19:21.578"/>
+</kw>
+<status status="PASS" starttime="20230117 00:19:16.436" endtime="20230117 00:19:21.579"/>
+</kw>
+<status status="PASS" starttime="20230117 00:19:16.436" endtime="20230117 00:19:21.579"/>
+</test>
+<status status="PASS" starttime="20230117 00:19:16.430" endtime="20230117 00:19:21.580"/>
+</suite>
+<status status="FAIL" starttime="20230117 00:19:05.444" endtime="20230117 00:19:21.582"/>
+</suite>
+<statistics>
+<total>
+<stat pass="3" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="1" fail="0" skip="0">positive_cases</stat>
+</tag>
+<suite>
+<stat pass="3" fail="1" skip="0" id="s1" name="Suites">Suites</stat>
+<stat pass="2" fail="1" skip="0" id="s1-s1" name="ClerkActions">Suites.ClerkActions</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s2" name="GovernerAction">Suites.GovernerAction</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
